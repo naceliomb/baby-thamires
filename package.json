@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --es-module-specifier-resolution=node --no-warnings ./src/app.js ",
-    "start": "node --es-module-specifier-resolution=node --no-warnings ./src/app.js"
+    "start": "node  src/app.js"
   },
   "author": "Nacelio M. Barbosa <naceliombdev@gmail.com>",
   "license": "ISC",
