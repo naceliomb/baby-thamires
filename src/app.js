@@ -7,6 +7,8 @@ import { swaggerUi, swaggerDocs } from "../swagger.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors({origin:'*'}));
+
 app.use(express.json());
 
 app.use("/api", voteRoutes);
