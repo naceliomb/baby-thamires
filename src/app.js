@@ -5,9 +5,10 @@ import { sequelize, synchronizeModels } from "./models/database.js";
 import { swaggerUi, swaggerDocs } from "../swagger.js";
 
 const app = express();
+var cors = require('cors')
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({origin:'*'}));
+app.use(cors())
 
 app.use(express.json());
 
