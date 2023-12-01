@@ -7,7 +7,7 @@ import { sequelize, models } from "../models/database.js";
  *     parameters:
  *       - in: body
  *         name: vote
- *         description: O voto a ser criado
+ *         description: O voto a ser criado, entrando com os parametros de name e value["f" ou "m"], caso a pessoa já tenha votado, retorna um erro.
  *         schema:
  *           type: object
  *           required:
@@ -28,6 +28,13 @@ import { sequelize, models } from "../models/database.js";
 const createVote = async (req, res) => {
     try {
         const { name, value } = req.body;
+
+        // Verificar se o nome já existe
+        const existingVote = await models.Vote.findOne({ where: { name } });
+        if (existingVote) {
+            return res.status(409).json({ error: "Essa pessoa já votou" });
+        }
+
         const vote = await models.Vote.create({ name, value });
         res.status(201).json(vote);
     } catch (error) {
