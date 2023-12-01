@@ -1,4 +1,28 @@
 import { sequelize, models } from "../models/database.js";
+/**
+ * @swagger
+ * /api/vote:
+ *   post:
+ *     summary: Cria um novo voto
+ *     parameters:
+ *       - in: body
+ *         name: vote
+ *         description: O voto a ser criado
+ *         schema:
+ *           type: object
+ *           required:
+ *             - name
+ *             - value
+ *           properties:
+ *             name:
+ *               type: string
+ *             value:
+ *               type: string
+ *               enum: [m, f]
+ *     responses:
+ *       200:
+ *         description: O voto foi criado com sucesso
+ */
 
 // Controller para criar um novo voto
 const createVote = async (req, res) => {
@@ -11,6 +35,23 @@ const createVote = async (req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * /api/vote:
+ *   get:
+ *     summary: Retorna a lista de votos
+ *     description: Retorna um array contendo todos os votos. Se um parâmetro de consulta "gender" for fornecido com o valor "m" ou "f", retorna apenas os votos correspondentes ao gênero.
+ *     parameters:
+ *       - in: query
+ *         name: gender
+ *         schema:
+ *           type: string
+ *           enum: [m, f]
+ *         description: O gênero para filtrar os votos
+ *     responses:
+ *       200:
+ *         description: A lista de votos
+ */
 // Controller para obter todos os votos
 const getAllVotes = async (req, res) => {
     try {
@@ -20,8 +61,8 @@ const getAllVotes = async (req, res) => {
         if (gender === "m" || gender === "f") {
             votes = await models.Vote.findAll({
                 where: {
-                    gender: gender
-                }
+                    value: gender,
+                },
             });
         } else {
             votes = await models.Vote.findAll();
@@ -33,12 +74,9 @@ const getAllVotes = async (req, res) => {
     }
 };
 
-
-
 // Outros controladores (update, delete) podem ser adicionados conforme necessário
 
 export default {
     createVote,
     getAllVotes,
 };
-
