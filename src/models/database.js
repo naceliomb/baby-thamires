@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import VoteModel from "./vote.js";
+import BetModel from "./bet.js";
 import { config } from "dotenv";
 //carregar variaveis de ambiente
 config();
@@ -16,6 +17,7 @@ const sequelize = new Sequelize({
 
 const models = {
     Vote: VoteModel(sequelize, Sequelize),
+    Bet: BetModel(sequelize, Sequelize),
     // adicione outros modelos conforme necessário
 };
 
