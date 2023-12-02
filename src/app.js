@@ -6,13 +6,12 @@ import cors from "cors";
 import { swaggerUi, swaggerDocs } from "../swagger.js";
 
 const app = express();
-var cors = require('cors')
 const PORT = process.env.PORT || 3000;
 
-app.use(cors(origin));
+// Use o middleware CORS aqui
+app.use(cors());
 
 app.use(express.json());
-app.use(cors());
 app.use("/api", voteRoutes);
 app.use("/api", betRoutes);
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
